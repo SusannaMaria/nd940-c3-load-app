@@ -1,10 +1,19 @@
 package com.udacity
 
+import android.app.NotificationManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.udacity.databinding.ActivityDetailBinding
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity() {
+    private lateinit var notificationManager: NotificationManager
+    private lateinit var activityDetailBinding: ActivityDetailBinding
+
+    companion object {
+        const val EXTRA_DETAIL_STATUS = "status"
+        const val EXTRA_DETAIL_FILENAME = "fileName"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
