@@ -5,8 +5,12 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.udacity.databinding.ActivityDetailBinding
 import kotlinx.android.synthetic.main.activity_detail.*
+import kotlinx.android.synthetic.main.content_detail.*
 
 class DetailActivity : AppCompatActivity() {
+    private var fileName = ""
+    private var status = ""
+
     private lateinit var notificationManager: NotificationManager
     private lateinit var activityDetailBinding: ActivityDetailBinding
 
@@ -19,6 +23,10 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         setSupportActionBar(toolbar)
+        fileName = intent.getStringExtra("fileName").toString()
+        status = intent.getStringExtra("status").toString()
+        file_name.text = fileName
+        status_text.text = status
     }
 
 }
