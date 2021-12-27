@@ -2,7 +2,6 @@ package com.udacity
 
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
-import android.animation.ValueAnimator
 import android.animation.ValueAnimator.INFINITE
 import android.content.Context
 import android.graphics.Canvas
@@ -10,8 +9,6 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.withStyledAttributes
-import kotlinx.android.synthetic.main.content_main.*
-import timber.log.Timber
 import kotlin.properties.Delegates
 
 class LoadingButton @JvmOverloads constructor(
@@ -19,13 +16,13 @@ class LoadingButton @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
-    private var widthSize: Int = 0
+    private var widthProp: Int = 0
         set(value) {
             field = value
             invalidate()
         }
 
-    private var angle: Float = 0f
+    private var angleProp: Float = 0f
         set(value) {
             field = value
         }
@@ -39,17 +36,16 @@ class LoadingButton @JvmOverloads constructor(
     var isLoading: Boolean = false
     private var heightSize = 0
     private var value = 0.0f
-    private lateinit var mpaint: Paint
-    private val textWidth: Float by lazy { mpaint.measureText("We are loading") }
+    private var mpaint: Paint
+    private var textWidth: Float = 0.0f
 
     var buttonState: ButtonState by Delegates.observable<ButtonState>(ButtonState.Completed) { p, old, new ->
         when(new){
             ButtonState.Loading  -> {
-                val widthAnimation = PropertyValuesHolder.ofInt("widthSize", 0, width)
-                val circleAnimation = PropertyValuesHolder.ofFloat("angle", 0f, 360f)
+                val widthAnimation = PropertyValuesHolder.ofInt("widthProp", 0, width)
+                val circleAnimation = PropertyValuesHolder.ofFloat("angleProp", 0f, 360f)
                 animator = ObjectAnimator.ofPropertyValuesHolder(this,widthAnimation,circleAnimation)
                 animator.duration = 2000
-
                 animator.repeatCount = INFINITE
                 animator.start()
                 isLoading = true
@@ -58,11 +54,10 @@ class LoadingButton @JvmOverloads constructor(
                 animator.end()
                 animator.cancel()
                 isLoading = false
-                widthSize=width
+                widthProp=width
             }
         }
     }
-
 
     init {
         mpaint = Paint().apply {
@@ -78,6 +73,7 @@ class LoadingButton @JvmOverloads constructor(
         loadingCircleColor = context.getColor(R.color.colorCircle)
         downloadString = context.getString(R.string.download)
         weAreLoadingString = context.getString(R.string.we_are_loading)
+        textWidth = mpaint.measureText(weAreLoadingString)
     }
 
 
@@ -85,10 +81,10 @@ class LoadingButton @JvmOverloads constructor(
         super.onDraw(canvas)
         if (isLoading) {
             mpaint.color = loadingPrimaryDarkColor
-            canvas?.drawRect(0.0f, 0.0f, widthSize.toFloat(), heightSize.toFloat(), mpaint)
+            canvas?.drawRect(0.0f, 0.0f, widthProp.toFloat(), heightSize.toFloat(), mpaint)
 
             mpaint.color = loadingBackgroundColor
-            canvas?.drawRect(widthSize.toFloat(), 0f, (width).toFloat(), (height).toFloat(), mpaint)
+            canvas?.drawRect(widthProp.toFloat(), 0f, (width).toFloat(), (height).toFloat(), mpaint)
 
             mpaint.color = loadingTextColor
             canvas?.drawText(
@@ -105,7 +101,7 @@ class LoadingButton @JvmOverloads constructor(
                 width / 2 + textWidth / 2 + mpaint.textSize,
                 (height - mpaint.textSize) / 2 + (mpaint.textSize),
                 0f,
-                angle,
+                angleProp,
                 true,
                 mpaint
             )
@@ -134,7 +130,7 @@ class LoadingButton @JvmOverloads constructor(
             heightMeasureSpec,
             0
         )
-        widthSize = w
+        widthProp = w
         heightSize = h
         setMeasuredDimension(w, h)
     }

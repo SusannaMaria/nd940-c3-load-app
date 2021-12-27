@@ -34,8 +34,6 @@ class MainActivity : AppCompatActivity() {
     private var downloadID: Long = 0
     private var urlID: Int = -1
     private lateinit var notificationManager: NotificationManager
-    private lateinit var pendingIntent: PendingIntent
-    private lateinit var action: NotificationCompat.Action
     private lateinit var activityMainBinding: ActivityMainBinding
 
 
@@ -45,6 +43,8 @@ class MainActivity : AppCompatActivity() {
         activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+
+        imageView.setImageResource(R.mipmap.cloud_download);
         val radioGroup = findViewById<RadioGroup>(R.id.url_radio_group)
 
         radioGroup.setOnCheckedChangeListener { group, checkedId ->
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
 
         custom_button.setOnClickListener {
             if (urlID<0){
-                Toast.makeText(this@MainActivity, "Please select file to download", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MainActivity, getString(R.string.user_select_file), Toast.LENGTH_SHORT).show()
             }else{
                 custom_button.buttonState= ButtonState.Loading
                 download()
@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
                     custom_button.buttonState= ButtonState.Completed
 
                     if (context != null) {
-                        notificationManager.sendNotification("Download completed","finished", PREDEFINED_URL_LIST.find { it.id == urlID }!!.url, context)
+                        notificationManager.sendNotification("Download completed","finished", PREDEFINED_URL_LIST.find { it.id == urlID }!!.text, context)
                     }
                 }
             }
@@ -98,8 +98,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun download() {
         val url_selected = PREDEFINED_URL_LIST.find { it.id == urlID }
-        Toast.makeText(applicationContext, "Download: ${url_selected?.url}", Toast.LENGTH_SHORT)
-            .show()
+        // Toast.makeText(applicationContext, "Download: ${url_selected?.url}", Toast.LENGTH_SHORT)
+        //    .show()
         val request =
             DownloadManager.Request(Uri.parse(url_selected?.url))
                 .setTitle(getString(R.string.app_name))
@@ -112,6 +112,7 @@ class MainActivity : AppCompatActivity() {
         downloadID =
             downloadManager.enqueue(request)// enqueue puts the download request in the queue.
     }
+
     private fun addRadioButtons() {
         val radioGroup = findViewById<RadioGroup>(R.id.url_radio_group)
 
@@ -129,9 +130,6 @@ class MainActivity : AppCompatActivity() {
 
     }
     companion object {
-        private const val URL =
-            "https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter/archive/master.zip"
-        private const val CHANNEL_ID = "channelId"
         private val PREDEFINED_URL_LIST = mutableListOf<Url>(
             Url(
                 1,

@@ -1,6 +1,8 @@
 package com.udacity
 
 import android.app.NotificationManager
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.udacity.databinding.ActivityDetailBinding
@@ -25,8 +27,16 @@ class DetailActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         fileName = intent.getStringExtra("fileName").toString()
         status = intent.getStringExtra("status").toString()
+        val notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.cancel(NOTIFICATION_ID)
         file_name.text = fileName
         status_text.text = status
+
+        button.setOnClickListener{
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 }

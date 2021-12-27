@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ND940C3-Project</string>
+    <string name="app_name">LoadApp</string>
     <string name="app_description">Download files from Internet</string>
     <string name="action_settings">Settings</string>
 
@@ -9,11 +9,18 @@
     <string name="notification_button">See changes</string>
 
     <string name="button_name">Click me</string>
-    <string name="button_loading">We are loading </string>
+    <string name="button_loading">We are loading</string>
     <string name="title_activity_detail">DetailActivity</string>
     <string name="download">Download</string>
     <string name="we_are_loading">We are loading</string>
-
+    <string name="detail">Check the status</string>
     <string name="load_notification_channel_id" translatable="false">loading_channel</string>
     <string name="load_notification_channel_name" translatable="true">Loading</string>
+    <string name="user_select_file">Please select file to download</string>
+    <string name="file_name_title">File name:</string>
+    <string name="status_title">Status:</string>
+    <string name="default_filename">Default filename</string>
+    <string name="default_status">Default status</string>
+    <string name="button_ok_text">OK</string>
+
 </resources>
