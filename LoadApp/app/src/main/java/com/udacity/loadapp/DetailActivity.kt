@@ -1,10 +1,12 @@
-package com.udacity
+package com.udacity.loadapp
 
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.udacity.NOTIFICATION_ID
+import com.udacity.R
 import com.udacity.databinding.ActivityDetailBinding
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.content_detail.*

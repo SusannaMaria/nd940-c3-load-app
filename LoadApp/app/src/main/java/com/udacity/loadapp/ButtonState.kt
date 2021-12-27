@@ -1,4 +1,4 @@
-package com.udacity
+package com.udacity.loadapp
 
 /**
  * https://kotlinlang.org/docs/sealed-classes.html

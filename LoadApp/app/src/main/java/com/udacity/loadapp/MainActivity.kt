@@ -1,7 +1,5 @@
-package com.udacity
+package com.udacity.loadapp
 
-import android.animation.ObjectAnimator
-import android.animation.PropertyValuesHolder
 import android.app.*
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -12,22 +10,19 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.ViewGroup
-import android.view.animation.Animation.INFINITE
 import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat
-import androidx.core.view.marginLeft
 import androidx.databinding.DataBindingUtil
+import com.udacity.R
 import com.udacity.databinding.ActivityMainBinding
+import com.udacity.sendNotification
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import timber.log.Timber
 import timber.log.Timber.DebugTree
-import com.udacity.sendNotification
 
 class MainActivity : AppCompatActivity() {
 
